@@ -4,13 +4,9 @@ import { Animated, Easing } from 'react-native';
 
 import type { AnimatedCarouselItemProps } from './types';
 
-type State = {
-  animatedValue: Animated.Value,
-};
-
 export default class AnimatedCarouselItem extends Component<
   AnimatedCarouselItemProps,
-  State
+  *
 > {
   static defaultProps = {
     duration: 150,
@@ -19,40 +15,24 @@ export default class AnimatedCarouselItem extends Component<
     useNativeDriver: false,
   };
 
-  state = {
-    animatedValue: new Animated.Value(0),
-  };
-
-  componentDidMount = () => {
-    const { itemIndex, currentIndex } = this.props;
-
-    if (itemIndex === currentIndex) {
-      this.state.animatedValue.setValue(1);
-    }
-  };
+  animatedValue: Animated.Value = new Animated.Value(
+    this.props.itemIndex === this.props.currentIndex ? 1 : 0
+  );
 
   componentWillUnmount = () => {
-    this.state.animatedValue.stopAnimation();
+    this.animatedValue.stopAnimation();
   };
 
-  componentWillReceiveProps = (nextProps: AnimatedCarouselItemProps) => {
+  componentDidUpdate = () => {
     const {
       itemIndex,
       currentIndex,
       duration,
       easing,
       useNativeDriver,
-    } = nextProps;
-
-    const {
-      itemIndex: prevItemIndex,
-      currentIndex: prevCurrentIndex,
     } = this.props;
 
-    if (prevItemIndex === itemIndex && prevCurrentIndex === currentIndex)
-      return;
-
-    Animated.timing(this.state.animatedValue, {
+    Animated.timing(this.animatedValue, {
       duration,
       useNativeDriver,
       easing,
@@ -61,6 +41,6 @@ export default class AnimatedCarouselItem extends Component<
   };
 
   render() {
-    return this.props.render(this.state.animatedValue);
+    return this.props.render(this.animatedValue);
   }
 }

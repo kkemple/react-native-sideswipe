@@ -20,10 +20,11 @@ export default class SideSwipe extends Component<CarouselProps, State> {
     onIndexChange: () => {},
     renderItem: () => null,
     shouldCapture: ({ dx }: GestureState) => Math.abs(dx) > 1,
+    extractKey: (item: *, index: number) => `sideswipe-carousel-item-${index}`,
   };
 
   state = {
-    currentIndex: 0,
+    currentIndex: this.props.index || 0,
   };
 
   componentWillMount = (): void => {
@@ -34,51 +35,33 @@ export default class SideSwipe extends Component<CarouselProps, State> {
     });
   };
 
-  componentDidMount = () => {
-    if (this.props.index && this.props.index !== 0) {
-      this.setState(
-        () => ({ currentIndex: this.props.index }),
-        () =>
-          setTimeout(
-            () =>
-              this.list.scrollToIndex({
-                index: this.props.index,
-                animated: false,
-                viewOffset: this.props.contentOffset,
-              }),
-            300
-          )
-      );
-    }
+  componentDidUpdate = () => {
+    setTimeout(
+      () =>
+        this.list.scrollToIndex({
+          index: this.state.currentIndex,
+          animated: false,
+          viewOffset: this.props.contentOffset,
+        }),
+      300
+    );
   };
 
   componentWillReceiveProps = (nextProps: CarouselProps) => {
-    if (!!nextProps.index && nextProps.index !== this.state.currentIndex) {
-      this.setState(
-        () => ({ currentIndex: nextProps.index }),
-        () =>
-          setTimeout(
-            () =>
-              this.list.scrollToIndex({
-                index: nextProps.index,
-                animated: false,
-                viewOffset: this.props.contentOffset,
-              }),
-            300
-          )
-      );
+    if (nextProps.index && nextProps.index !== this.state.currentIndex) {
+      this.setState(() => ({ currentIndex: nextProps.index }));
     }
   };
 
   render = () => {
-    const { style, data, contentOffset, renderItem } = this.props;
+    const { style, data, contentOffset, extractKey, renderItem } = this.props;
     const { currentIndex } = this.state;
     const dataLength = data.length;
 
     return (
       <FlatList
         {...this.panResponder.panHandlers}
-        keyExtractor={this.extractKey}
+        keyExtractor={extractKey}
         horizontal
         scrollEnabled={false}
         data={data}
@@ -99,8 +82,6 @@ export default class SideSwipe extends Component<CarouselProps, State> {
       />
     );
   };
-
-  extractKey = (item: *, index: number) => `sideswipe-carousel-item-${index}`;
 
   getItemLayout = (data: Array<*>, index: number) => ({
     offset: this.props.itemWidth * index + this.props.contentOffset,

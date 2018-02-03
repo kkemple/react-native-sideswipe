@@ -39,6 +39,9 @@ type CarouselProps = {
   // fired when the active index for the carousel changes
   onIndexChange?: number => void,
 
+  // used to set the unique key of each item in the carousel
+  extractKey?: (item: *, index: number) => string,
+
   // style for the FlatList element
   style?: Styles,
 
@@ -158,8 +161,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars3.githubusercontent.com/u/3629876?v=4" width="100px;"/><br /><sub><b>Kurtis Kemple</b></sub>](https://twitter.com/kurtiskemple)<br />[💻](https://github.com/kkemple/react-native-sideswipe/commits?author=kkemple "Code") [📖](https://github.com/kkemple/react-native-sideswipe/commits?author=kkemple "Documentation") |
-| :---: |
+| [<img src="https://avatars3.githubusercontent.com/u/3629876?v=4" width="100px;"/><br /><sub><b>Kurtis Kemple</b></sub>](https://twitter.com/kurtiskemple)<br />[💻](https://github.com/kkemple/react-native-sideswipe/commits?author=kkemple "Code") [📖](https://github.com/kkemple/react-native-sideswipe/commits?author=kkemple "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/1714673?v=4" width="100px;"/><br /><sub><b>Jason Brown</b></sub>](http://browniefed.com)<br />[💻](https://github.com/kkemple/react-native-sideswipe/commits?author=browniefed "Code") [🤔](#ideas-browniefed "Ideas, Planning, & Feedback") |
+| :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
