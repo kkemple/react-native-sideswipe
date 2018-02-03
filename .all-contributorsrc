@@ -16,6 +16,16 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "browniefed",
+      "name": "Jason Brown",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1714673?v=4",
+      "profile": "http://browniefed.com",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
     }
   ]
 }

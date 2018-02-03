@@ -40,6 +40,7 @@ export type CarouselProps = {
   itemWidth?: number,
   shouldCapture?: GestureState => boolean,
   onIndexChange?: number => void,
+  extractKey?: (item: *, index: number) => string,
   style?: Styles,
   contentOffset?: number,
 };
