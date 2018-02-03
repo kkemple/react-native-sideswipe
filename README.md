@@ -16,7 +16,7 @@ ___
 ### `<Carousel />`
 Carousel component used to render carousel items via `renderItem` prop.
 
-```
+```js
 type CarouselProps = {
   // data for FlatList
   data: Array<*>,
@@ -50,7 +50,7 @@ type CarouselProps = {
 }
 ```
 
-```
+```js
 type CarouselRenderProps = {
   // index of item in data collection
   itemIndex: number,
@@ -72,7 +72,7 @@ Helper component used to create an animated value for carousel items. Passes an 
 
 > Animated.Value is 0 when not active, 1 when active.
 
-```
+```js
 type AnimatedCarouselItemProps = {
   // index of item in data collection
   itemIndex: number,
@@ -101,11 +101,11 @@ ___
 
 ## Usage:
 
-```
+```bash
 yarn add react-native-sideswipe
 ```
 
-```
+```js
 import { Dimensions } from 'react-native';
 import {
   Carousel,
@@ -122,7 +122,7 @@ export default class SweetCarousel extends Component {
 
   render = () => {
     // center items on screen
-    const { width } = Dimensions.get('window);
+    const { width } = Dimensions.get('window');
     const contentOffset = (width - CustomComponent.WIDTH) / 2;
 
     return (
