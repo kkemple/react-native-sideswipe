@@ -1,0 +1,21 @@
+{
+  "projectName": "react-native-sideswipe",
+  "projectOwner": "kkemple",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "kkemple",
+      "name": "Kurtis Kemple",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3629876?v=4",
+      "profile": "https://twitter.com/kurtiskemple",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    }
+  ]
+}

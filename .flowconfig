@@ -1,0 +1,32 @@
+[ignore]
+; Ignore libraries cousing troubles
+.*/node_modules/react-native/Libraries/Network/.*
+.*/node_modules/react-native/Libraries/Lists/ListView/.*
+.*/node_modules/react-native/Libraries/react-native/react-native-implementation.js
+.*/node_modules/react-native/Libraries/Inspector/NetworkOverlay.js
+.*/node_modules/react-native/Libraries/Components/Slider/.*
+.*/node_modules/react-native/Libraries/StyleSheet/StyleSheetValidation.js
+.*/node_modules/react-native/Libraries/StyleSheet/StyleSheet.js
+
+
+; Ignore unexpected extra "@providesModule"
+.*/node_modules/.*/node_modules/fbjs/.*
+
+; Ignore duplicate module providers
+; For RN Apps installed via npm, "Libraries" folder is inside
+; "node_modules/react-native" but in the source repo it is in the root
+.*/Libraries/react-native/React.js
+.*/Libraries/react-native/ReactNative.js
+
+[include]
+src
+node_modules
+
+[libs]
+node_modules/react-native/Libraries/react-native/react-native-interface.js
+node_modules/react-native/flow
+flow-typed
+
+
+[version]
+^0.64.0
