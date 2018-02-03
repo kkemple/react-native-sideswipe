@@ -33,6 +33,29 @@ type CarouselProps = {
   // width of each child
   itemWidth?: number,
 
+  // offset from center of carousel item used for determining index
+  threshold?: number,
+
+  /**
+   * drag distance examples with different thresholds
+   * 
+   * with item width of 200 and no threshold
+   * ---------------> <-----------------
+   * 0 ------- -index/+index ------- 200
+   *
+   * with item width of 200 and 50 threshold
+   * ---------->           <------------
+   * 0 -- -index -- 100 -- +index -- 200
+   *
+   * with item width of 200 and 75 threshold
+   * -------->               <----------
+   * 0 - -index --- 100 --- +index - 200
+   *
+   * with item width of 200 and 90 threshold
+   * ----->                      <------ 
+   * 0 -index ----- 100 ----- +index 200
+   */
+
   // should we capture touch event
   shouldCapture?: GestureState => boolean,
 

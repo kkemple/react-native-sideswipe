@@ -1,6 +1,6 @@
 /* @flow */
 import React, { Component } from 'react';
-import { Dimensions, FlatList, PanResponder } from 'react-native';
+import { Dimensions, FlatList, PanResponder, Platform } from 'react-native';
 
 import type { CarouselProps, GestureEvent, GestureState } from '../types';
 
@@ -17,6 +17,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
   static defaultProps = {
     contentOffset: 0,
     itemWidth: screenWidth,
+    threshold: 0,
     onIndexChange: () => {},
     renderItem: () => null,
     shouldCapture: ({ dx }: GestureState) => Math.abs(dx) > 1,
@@ -29,7 +30,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
 
   componentWillMount = (): void => {
     this.panResponder = PanResponder.create({
-      onMoveShouldSetPanResponder: this.handleGestureCapture,
+      onMoveShouldSetPanResponderCapture: this.handleGestureCapture,
       onPanResponderMove: this.handleGestureMove,
       onPanResponderRelease: this.handleGestureRelease,
     });
@@ -63,6 +64,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
         {...this.panResponder.panHandlers}
         keyExtractor={extractKey}
         horizontal
+        showsHorizontalScrollIndicator={false}
         scrollEnabled={false}
         data={data}
         style={[{ width: screenWidth }, style]}
@@ -92,9 +94,10 @@ export default class SideSwipe extends Component<CarouselProps, State> {
   handleGestureCapture = (e: GestureEvent, s: GestureState) =>
     this.props.shouldCapture(s);
 
-  handleGestureMove = (e: GestureEvent, { dx }: GestureState) => {
+  handleGestureMove = (e: GestureEvent, { dx, vx }: GestureState) => {
     const currentOffset = this.state.currentIndex * this.props.itemWidth;
-    const resolvedOffset = currentOffset - dx;
+    const offsetWithVelocity = Math.round(dx + vx);
+    const resolvedOffset = currentOffset - offsetWithVelocity;
 
     this.list.scrollToOffset({
       offset: resolvedOffset,
@@ -105,7 +108,10 @@ export default class SideSwipe extends Component<CarouselProps, State> {
   handleGestureRelease = (e: GestureEvent, { dx }: GestureState) => {
     const currentOffset = this.state.currentIndex * this.props.itemWidth;
     const resolvedIndex = Math.round(
-      (currentOffset - dx) / this.props.itemWidth
+      (currentOffset -
+        dx +
+        (dx > 0 ? -this.props.threshold : this.props.threshold)) /
+        this.props.itemWidth
     );
 
     const newIndex =
