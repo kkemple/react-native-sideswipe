@@ -1,6 +1,6 @@
 /* @flow */
 import React, { Component } from 'react';
-import { Dimensions, FlatList, PanResponder, Platform } from 'react-native';
+import { Dimensions, FlatList, PanResponder } from 'react-native';
 
 import type { CarouselProps, GestureEvent, GestureState } from '../types';
 
