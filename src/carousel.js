@@ -1,20 +1,28 @@
 /* @flow */
 import React, { Component } from 'react';
-import { Dimensions, FlatList, PanResponder } from 'react-native';
+import { Animated, Dimensions, FlatList, PanResponder } from 'react-native';
 
-import type { CarouselProps, GestureEvent, GestureState } from '../types';
+import type {
+  CarouselProps,
+  GestureEvent,
+  GestureState,
+  ScrollEvent,
+} from '../types';
+
+const { width: screenWidth } = Dimensions.get('window');
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 type State = {
   currentIndex: number,
+  animatedValue: Animated.Value,
 };
-
-const { width: screenWidth } = Dimensions.get('window');
 
 export default class SideSwipe extends Component<CarouselProps, State> {
   panResponder: PanResponder;
   list: typeof FlatList;
 
   static defaultProps = {
+    useNativeDriver: true,
     contentOffset: 0,
     itemWidth: screenWidth,
     threshold: 0,
@@ -26,6 +34,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
 
   state = {
     currentIndex: this.props.index || 0,
+    animatedValue: new Animated.Value(this.props.index || 0),
   };
 
   componentWillMount = (): void => {
@@ -36,21 +45,22 @@ export default class SideSwipe extends Component<CarouselProps, State> {
     });
   };
 
-  componentDidUpdate = () => {
-    setTimeout(
-      () =>
-        this.list.scrollToIndex({
-          index: this.state.currentIndex,
-          animated: true,
-          viewOffset: this.props.contentOffset,
-        }),
-      300
-    );
-  };
-
   componentWillReceiveProps = (nextProps: CarouselProps) => {
     if (nextProps.index && nextProps.index !== this.state.currentIndex) {
-      this.setState(() => ({ currentIndex: nextProps.index }));
+      this.setState(
+        () => ({ currentIndex: nextProps.index }),
+        () => {
+          setTimeout(
+            () =>
+              this.list.scrollToIndex({
+                index: this.state.currentIndex,
+                animated: true,
+                viewOffset: this.props.contentOffset,
+              }),
+            200
+          );
+        }
+      );
     }
   };
 
@@ -60,7 +70,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
     const dataLength = data.length;
 
     return (
-      <FlatList
+      <AnimatedFlatList
         {...this.panResponder.panHandlers}
         keyExtractor={extractKey}
         horizontal
@@ -70,19 +80,33 @@ export default class SideSwipe extends Component<CarouselProps, State> {
         style={[{ width: screenWidth }, style]}
         contentContainerStyle={{ paddingHorizontal: contentOffset }}
         getItemLayout={this.getItemLayout}
-        ref={ref => {
-          this.list = ref;
-        }}
+        ref={this.getRef}
+        scrollEventThrottle={1}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { x: this.state.animatedValue } } }],
+          { useNativeDriver: this.props.useNativeDriver }
+        )}
         renderItem={({ item, index }) =>
           renderItem({
             item,
             currentIndex,
             itemIndex: index,
             itemCount: dataLength,
+            animatedValue: this.state.animatedValue,
           })
         }
       />
     );
+  };
+
+  onScroll = ({ nativeEvent: { contentOffset: { x } } }: ScrollEvent) => {
+    this.state.animatedValue.setValue(x / this.props.itemWidth);
+  };
+
+  getRef = (ref: *) => {
+    if (ref) {
+      this.list = ref._component ? ref._component : ref;
+    }
   };
 
   getItemLayout = (data: Array<*>, index: number) => ({
@@ -95,32 +119,34 @@ export default class SideSwipe extends Component<CarouselProps, State> {
     this.props.shouldCapture(s);
 
   handleGestureMove = (e: GestureEvent, { dx, vx }: GestureState) => {
-    const currentOffset = this.state.currentIndex * this.props.itemWidth;
-    const offsetWithVelocity = Math.round(dx + vx);
-    const resolvedOffset = currentOffset - offsetWithVelocity;
+    const currentOffset: number =
+      this.state.currentIndex * this.props.itemWidth;
+    const velocityMultipler: number = Math.abs(dx * vx);
+    const offsetWithVelocity: number =
+      dx - (dx < 0 ? -velocityMultipler : velocityMultipler);
+    const resolvedOffset: number = currentOffset - offsetWithVelocity;
 
     this.list.scrollToOffset({
       offset: resolvedOffset,
-      animated: false,
+      animated: true,
     });
   };
 
   handleGestureRelease = (e: GestureEvent, { dx, vx }: GestureState) => {
-    const currentOffset = this.state.currentIndex * this.props.itemWidth;
-    const offsetWithVelocity = Math.round(dx + vx);
-    const resolvedOffset = currentOffset - offsetWithVelocity;
-
-    const resolvedIndex = Math.round(
+    const currentOffset: number =
+      this.state.currentIndex * this.props.itemWidth;
+    const resolvedOffset: number = currentOffset - dx;
+    const resolvedIndex: number = Math.round(
       (resolvedOffset +
         (dx > 0 ? -this.props.threshold : this.props.threshold)) /
         this.props.itemWidth
     );
 
     const velocity: number = Math.round(Math.abs(vx));
-    const velocityCount: number = velocity < 3 ? 0 : velocity - 2;
+    const velocityCount: number = velocity < 1 ? 0 : velocity - 1;
     const velocityDifference: number = Math.min(10, velocityCount);
 
-    const newIndex =
+    const newIndex: number =
       dx > 0
         ? Math.max(resolvedIndex - velocityDifference, 0)
         : Math.min(

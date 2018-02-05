@@ -56,6 +56,9 @@ type CarouselProps = {
    * 0 -index ----- 100 ----- +index 200
    */
 
+  // should scroll animation use native driver (true) - change at risk of perf
+  useNativeDriver?: boolean
+
   // should we capture touch event
   shouldCapture?: GestureState => boolean,
 
@@ -86,38 +89,11 @@ type CarouselRenderProps = {
 
   // item passed from FlatList
   item: *,
+
+  // animated value tracking current index
+  animatedValue: Animated.Value
 }
 
-```
-
-### `<AnimatedCarouselItem />`
-Helper component used to create an animated value for carousel items. Passes an `Animated.Value` via `render` prop. Children can use this animated value to make visual adjustments when item becomes the active item.
-
-> Animated.Value is 0 when not active, 1 when active.
-
-```js
-type AnimatedCarouselItemProps = {
-  // index of item in data collection
-  itemIndex: number,
-
-  // active index of the carousel
-  currentIndex: number,
-
-  // renders a carousel item, passing an animated value
-  render: Animated.Value =>
-    | Array<React$Element<*> | boolean>
-    | React$Element<*>
-    | null,
-
-  // duration to use for animations (150)
-  duration?: number,
-
-  // Easing function to use for animations (Easing.linear)
-  easing?: Function,
-
-  // Use native drive for animations
-  useNativeDriver?: boolean,
-}
 ```
 
 ___
@@ -132,7 +108,6 @@ yarn add react-native-sideswipe
 import { Dimensions } from 'react-native';
 import {
   Carousel,
-  AnimatedCarouselItem,
 } from 'react-native-sideswipe';
 
 import CustomComponent from '...'
@@ -158,16 +133,10 @@ export default class SweetCarousel extends Component {
         onIndexChange={index =>
           this.setState(() => ({ currentIndex: index }))
         }
-        renderItem={({ itemIndex, currentIndex, item }) => (
-          <AnimatedCarouselItem
-            itemIndex={itemIndex}
-            currentIndex={currentIndex}
-            render={animatedValue => (
-              <CustomComponent
-                {...item}
-                animatedValue={animatedValue}
-              />
-            )}
+        renderItem={({ itemIndex, currentIndex, item, animatedValue }) => (
+         <CustomComponent
+            {...item}
+            animatedValue={animatedValue}
           />
         )}
       />
