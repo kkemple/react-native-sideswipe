@@ -1,6 +1,6 @@
 {
   "name": "react-native-sideswipe",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "cross-platform react native carousel with sensible defaults",
   "main": "src/index.js",
   "repository": "https://github.com/kkemple/react-native-sideswipe",
