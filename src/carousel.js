@@ -41,7 +41,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
       () =>
         this.list.scrollToIndex({
           index: this.state.currentIndex,
-          animated: false,
+          animated: true,
           viewOffset: this.props.contentOffset,
         }),
       300
@@ -94,10 +94,9 @@ export default class SideSwipe extends Component<CarouselProps, State> {
   handleGestureCapture = (e: GestureEvent, s: GestureState) =>
     this.props.shouldCapture(s);
 
-  handleGestureMove = (e: GestureEvent, { dx, vx }: GestureState) => {
+  handleGestureMove = (e: GestureEvent, { dx }: GestureState) => {
     const currentOffset = this.state.currentIndex * this.props.itemWidth;
-    const offsetWithVelocity = Math.round(dx + vx);
-    const resolvedOffset = currentOffset - offsetWithVelocity;
+    const resolvedOffset = currentOffset - dx;
 
     this.list.scrollToOffset({
       offset: resolvedOffset,
@@ -105,19 +104,27 @@ export default class SideSwipe extends Component<CarouselProps, State> {
     });
   };
 
-  handleGestureRelease = (e: GestureEvent, { dx }: GestureState) => {
+  handleGestureRelease = (e: GestureEvent, { dx, vx }: GestureState) => {
     const currentOffset = this.state.currentIndex * this.props.itemWidth;
+    const resolvedOffset = currentOffset - dx;
+
     const resolvedIndex = Math.round(
-      (currentOffset -
-        dx +
+      (resolvedOffset +
         (dx > 0 ? -this.props.threshold : this.props.threshold)) /
         this.props.itemWidth
     );
 
+    const velocity: number = Math.round(Math.abs(vx));
+    const velocityCount: number = velocity < 3 ? 0 : velocity - 2;
+    const velocityDifference: number = Math.min(10, velocityCount);
+
     const newIndex =
       dx > 0
-        ? Math.max(resolvedIndex, 0)
-        : Math.min(resolvedIndex, this.props.data.length - 1);
+        ? Math.max(resolvedIndex - velocityDifference, 0)
+        : Math.min(
+            resolvedIndex + velocityDifference,
+            this.props.data.length - 1
+          );
 
     this.list.scrollToIndex({
       index: newIndex,
