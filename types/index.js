@@ -30,20 +30,23 @@ export type GestureState = {
   numberActiveTouches: number,
 };
 
-export type CarouselProps = {
-  data: Array<*>,
+type CarouselDefaultProps = {
   renderItem: CarouselRenderProps =>
     | Array<React$Element<*> | boolean>
     | React$Element<*>
     | null,
+  itemWidth: number,
+  contentOffset: number,
+  threshold: number,
+  extractKey: (item: *, index: number) => string,
+  shouldCapture: GestureState => boolean,
+  onIndexChange: number => void,
+};
+
+export type CarouselProps = CarouselDefaultProps & {
+  data: Array<*>,
   index?: number,
-  itemWidth?: number,
-  threshold?: number,
-  shouldCapture?: GestureState => boolean,
-  onIndexChange?: number => void,
-  extractKey?: (item: *, index: number) => string,
   style?: Styles,
-  contentOffset?: number,
 };
 
 export type CarouselRenderProps = {
@@ -53,14 +56,17 @@ export type CarouselRenderProps = {
   item: *,
 };
 
-export type AnimatedCarouselItemProps = {
-  itemIndex: number,
-  currentIndex: number,
+type AnimatedCarouselItemDefaultProps = {
   render: Animated.Value =>
     | Array<React$Element<*> | boolean>
     | React$Element<*>
     | null,
-  duration?: number,
-  easing?: Function,
-  useNativeDriver?: boolean,
+  duration: number,
+  easing: Function,
+  useNativeDriver: boolean,
+}
+
+export type AnimatedCarouselItemProps = AnimatedCarouselItemDefaultProps & {
+  itemIndex: number,
+  currentIndex: number,
 };

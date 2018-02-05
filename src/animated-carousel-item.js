@@ -2,7 +2,7 @@
 import { Component } from 'react';
 import { Animated, Easing } from 'react-native';
 
-import type { AnimatedCarouselItemProps } from './types';
+import type { AnimatedCarouselItemProps } from '../types';
 
 export default class AnimatedCarouselItem extends Component<
   AnimatedCarouselItemProps,
