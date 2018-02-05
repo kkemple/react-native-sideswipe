@@ -82,10 +82,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
         getItemLayout={this.getItemLayout}
         ref={this.getRef}
         scrollEventThrottle={1}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: this.state.animatedValue } } }],
-          { useNativeDriver: this.props.useNativeDriver }
-        )}
+        onScroll={this.onScroll}
         renderItem={({ item, index }) =>
           renderItem({
             item,
