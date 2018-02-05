@@ -94,7 +94,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
   handleGestureCapture = (e: GestureEvent, s: GestureState) =>
     this.props.shouldCapture(s);
 
-  handleGestureMove = (e: GestureEvent, { dx }: GestureState) => {
+  handleGestureMove = (e: GestureEvent, { dx, vx }: GestureState) => {
     const currentOffset = this.state.currentIndex * this.props.itemWidth;
     const offsetWithVelocity = Math.round(dx + vx);
     const resolvedOffset = currentOffset - offsetWithVelocity;
