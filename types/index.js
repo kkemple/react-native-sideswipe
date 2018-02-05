@@ -30,6 +30,14 @@ export type GestureState = {
   numberActiveTouches: number,
 };
 
+export type ScrollEvent = {
+  nativeEvent: {
+    contentOffset: {
+      x: number,
+    }
+  },
+};
+
 type CarouselDefaultProps = {
   renderItem: CarouselRenderProps =>
     | Array<React$Element<*> | boolean>
@@ -41,6 +49,7 @@ type CarouselDefaultProps = {
   extractKey: (item: *, index: number) => string,
   shouldCapture: GestureState => boolean,
   onIndexChange: number => void,
+  useNativeDriver: boolean,
 };
 
 export type CarouselProps = CarouselDefaultProps & {
@@ -54,19 +63,5 @@ export type CarouselRenderProps = {
   currentIndex: number,
   itemCount: number,
   item: *,
-};
-
-type AnimatedCarouselItemDefaultProps = {
-  render: Animated.Value =>
-    | Array<React$Element<*> | boolean>
-    | React$Element<*>
-    | null,
-  duration: number,
-  easing: Function,
-  useNativeDriver: boolean,
-}
-
-export type AnimatedCarouselItemProps = AnimatedCarouselItemDefaultProps & {
-  itemIndex: number,
-  currentIndex: number,
+  animatedValue: Animated.Value,
 };
