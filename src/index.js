@@ -1,2 +1,4 @@
-export { default as Carousel } from './carousel';
+import SideSwipe from './carousel';
+
+export default SideSwipe;
 export type { CarouselProps, CarouselPassProps } from './types';
