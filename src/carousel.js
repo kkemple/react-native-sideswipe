@@ -22,13 +22,13 @@ export default class SideSwipe extends Component<CarouselProps, State> {
   list: typeof FlatList;
 
   static defaultProps = {
-    useNativeDriver: true,
     contentOffset: 0,
     itemWidth: screenWidth,
     threshold: 0,
     onIndexChange: () => {},
     renderItem: () => null,
     shouldCapture: ({ dx }: GestureState) => Math.abs(dx) > 1,
+    shouldRelease: () => false,
     extractKey: (item: *, index: number) => `sideswipe-carousel-item-${index}`,
   };
 
@@ -42,6 +42,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
       onMoveShouldSetPanResponderCapture: this.handleGestureCapture,
       onPanResponderMove: this.handleGestureMove,
       onPanResponderRelease: this.handleGestureRelease,
+      onPanResponderTerminationRequest: this.handleGestureTerminationRequest,
     });
   };
 
@@ -111,6 +112,9 @@ export default class SideSwipe extends Component<CarouselProps, State> {
     length: this.props.itemWidth,
     index,
   });
+
+  handleGestureTerminationRequest = (e: GestureEvent, s: GestureState) =>
+    this.props.shouldRelease(s);
 
   handleGestureCapture = (e: GestureEvent, s: GestureState) =>
     this.props.shouldCapture(s);

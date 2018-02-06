@@ -56,11 +56,11 @@ type CarouselProps = {
    * 0 -index ----- 100 ----- +index 200
    */
 
-  // should scroll animation use native driver (true) - change at risk of perf
-  useNativeDriver?: boolean
-
   // should we capture touch event
   shouldCapture?: GestureState => boolean,
+
+  // should we release touch event to another view
+  shouldRelease?: GestureState => boolean,
 
   // fired when the active index for the carousel changes
   onIndexChange?: number => void,
@@ -106,9 +106,7 @@ yarn add react-native-sideswipe
 
 ```js
 import { Dimensions } from 'react-native';
-import {
-  Carousel,
-} from 'react-native-sideswipe';
+import SideSwipe from 'react-native-sideswipe';
 
 import CustomComponent from '...'
 import data from '...'
@@ -124,7 +122,7 @@ export default class SweetCarousel extends Component {
     const contentOffset = (width - CustomComponent.WIDTH) / 2;
 
     return (
-      <Carousel
+      <SideSwipe
         index={this.state.currentIndex}
         itemWidth={CustomComponent.WIDTH}
         style={{ width }}
