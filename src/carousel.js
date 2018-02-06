@@ -115,17 +115,14 @@ export default class SideSwipe extends Component<CarouselProps, State> {
   handleGestureCapture = (e: GestureEvent, s: GestureState) =>
     this.props.shouldCapture(s);
 
-  handleGestureMove = (e: GestureEvent, { dx, vx }: GestureState) => {
+  handleGestureMove = (e: GestureEvent, { dx }: GestureState) => {
     const currentOffset: number =
       this.state.currentIndex * this.props.itemWidth;
-    const velocityMultipler: number = Math.abs(dx * vx);
-    const offsetWithVelocity: number =
-      dx - (dx < 0 ? -velocityMultipler : velocityMultipler);
-    const resolvedOffset: number = currentOffset - offsetWithVelocity;
+    const resolvedOffset: number = currentOffset - dx;
 
     this.list.scrollToOffset({
       offset: resolvedOffset,
-      animated: true,
+      animated: false,
     });
   };
 
@@ -139,9 +136,9 @@ export default class SideSwipe extends Component<CarouselProps, State> {
         this.props.itemWidth
     );
 
-    const velocity: number = Math.round(Math.abs(vx));
-    const velocityCount: number = velocity < 1 ? 0 : velocity - 1;
-    const velocityDifference: number = Math.min(10, velocityCount);
+    const absoluteVelocity: number = Math.round(Math.abs(vx));
+    const velocityDifference: number =
+      absoluteVelocity < 1 ? 0 : absoluteVelocity - 1;
 
     const newIndex: number =
       dx > 0
