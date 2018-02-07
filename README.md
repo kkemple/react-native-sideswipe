@@ -6,10 +6,12 @@ A simple, cross-platform React Native swipeable carousel with sensible defaults
 ![demo2](./example-assets/spaced-tesla.gif)
 
 ## Why Another Carousel?
-Because I found all other options too heavy or not polished enough.
+Most solutions I found were very focused on mobile and adopt a paging pattern which limits what you can do on tablet and when you want the child to page when its smaller than the viewport.
+
+On top of that most solutions were either one-size-fits-all or not really polished.
 
 ## What Makes Your Solution So Special?
-Nothing. It's just a tiny simple carousel with a pretty flexible API. If you need more check out another solution, if you need less you might not need a carousel because this whole thing is ~150 lines. 😎
+Nothing. It's just a tiny simple carousel with a pretty flexible API. If you need more check out another solution, if you need less you might not need a carousel because this whole thing is ~200 lines. 😎
 
 ___
 
@@ -75,6 +77,12 @@ type CarouselProps = {
 
   // style for the FlatList element
   style?: Styles,
+  
+  // style for the FlatList element
+  flatListStyle?: Styles,
+  
+  // style for the FlatList element
+  contentContainerStyle?: Styles,
 
   // offset from start/end edges of carousel
   contentOffset?: number,
@@ -139,6 +147,8 @@ export default class SweetCarousel extends Component {
         renderItem={({ itemIndex, currentIndex, item, animatedValue }) => (
          <CustomComponent
             {...item}
+            index={itemIndex}
+            currentIndex={currentIndex}
             animatedValue={animatedValue}
           />
         )}

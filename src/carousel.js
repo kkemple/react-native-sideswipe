@@ -97,7 +97,15 @@ export default class SideSwipe extends Component<CarouselProps, State> {
   };
 
   render = () => {
-    const { style, data, contentOffset, extractKey, renderItem } = this.props;
+    const {
+      style,
+      flatListStyle,
+      contentContainerStyle,
+      data,
+      contentOffset,
+      extractKey,
+      renderItem,
+    } = this.props;
     const { currentIndex, scrollPosAnim, animatedValue } = this.state;
 
     const dataLength = data.length;
@@ -109,14 +117,17 @@ export default class SideSwipe extends Component<CarouselProps, State> {
       >
         <AnimatedFlatList
           horizontal
-          contentContainerStyle={{ paddingHorizontal: contentOffset }}
+          contentContainerStyle={[
+            { paddingHorizontal: contentOffset },
+            contentContainerStyle,
+          ]}
           data={data}
           getItemLayout={this.getItemLayout}
           keyExtractor={extractKey}
           ref={this.getRef}
           scrollEnabled={false}
           showsHorizontalScrollIndicator={false}
-          style={styles.flatList}
+          style={[styles.flatList, flatListStyle]}
           scrollEventThrottle={1}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { x: scrollPosAnim } } }],

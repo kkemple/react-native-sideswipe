@@ -57,6 +57,8 @@ export type CarouselProps = CarouselDefaultProps & {
   data: Array<*>,
   index?: number,
   style?: Styles,
+  flatListStyle?: Styles,
+  contentContainerStyle?: Styles,
 };
 
 export type CarouselRenderProps = {
