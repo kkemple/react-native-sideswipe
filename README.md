@@ -1,7 +1,9 @@
 # Sideswipe
 A simple, cross-platform React Native swipeable carousel with sensible defaults
 
-![demo](./example-assets/sideswipe-example.gif)
+![demo1](./example-assets/sideswipe.gif)
+
+![demo2](./example-assets/spaced-tesla.gif)
 
 ## Why Another Carousel?
 Because I found all other options too heavy or not polished enough.
@@ -55,6 +57,9 @@ type CarouselProps = {
    * ----->                      <------ 
    * 0 -index ----- 100 ----- +index 200
    */
+
+  // should we use native driver for animation
+  useNativeDriver?: boolean,
 
   // should we capture touch event
   shouldCapture?: GestureState => boolean,

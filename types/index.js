@@ -46,6 +46,7 @@ type CarouselDefaultProps = {
   itemWidth: number,
   contentOffset: number,
   threshold: number,
+  useNativeDriver: boolean,
   extractKey: (item: *, index: number) => string,
   shouldCapture: GestureState => boolean,
   shouldRelease: GestureState => boolean,
