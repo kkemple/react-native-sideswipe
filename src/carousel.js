@@ -38,11 +38,11 @@ export default class SideSwipe extends Component<CarouselProps, State> {
   constructor(props: CarouselProps) {
     super(props);
 
-    const currentIndex: number = this.props.index || 0;
-    const initialOffset: number = currentIndex * this.props.itemWidth;
+    const currentIndex: number = props.index || 0;
+    const initialOffset: number = currentIndex * props.itemWidth;
     const scrollPosAnim: Animated.Value = new Animated.Value(initialOffset);
     const itemWidthAnim: Animated.Value = new Animated.Value(
-      this.props.itemWidth
+      props.itemWidth
     );
     const animatedValue: Animated.Value = Animated.divide(
       scrollPosAnim,
