@@ -25,7 +25,7 @@ type CarouselProps = {
   // data for FlatList
   data: Array<*>,
 
-  // render item method, similar to FlatList with some enhancments
+  // render item method, similar to FlatList with some enhancements
   renderItem: CarouselRenderProps =>
     | Array<React$Element<*> | boolean>
     | React$Element<*>
