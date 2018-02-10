@@ -22,20 +22,35 @@ Carousel component used to render carousel items via `renderItem` prop.
 
 ```js
 type CarouselProps = {
+  // style for the FlatList content container element
+  contentContainerStyle?: Styles,
+
+  // horizontal padding on carousel
+  contentOffset?: number,
+
   // data for FlatList
   data: Array<*>,
 
-  // render item method, similar to FlatList with some enhancements
-  renderItem: CarouselRenderProps =>
-    | Array<React$Element<*> | boolean>
-    | React$Element<*>
-    | null,
+  // used to set the unique key of each item in the carousel
+  extractKey?: (item: *, index: number) => string,
+
+  // style for the FlatList element
+  flatListStyle?: Styles,
 
   // active index of the carousel
   index?: number,
 
   // width of each child
   itemWidth?: number,
+
+  // function called when the end of the carousel is reached
+  onEndReached: () => void,
+
+  // number between 0 - 1 used to determine when to call onEndReached
+  onEndReachedThreshold: number,
+
+  // fired when the active index for the carousel changes
+  onIndexChange?: number => void,
 
   // offset from center of carousel item used for determining index
   threshold?: number,
@@ -60,8 +75,11 @@ type CarouselProps = {
    * 0 -index ----- 100 ----- +index 200
    */
 
-  // should we use native driver for animation
-  useNativeDriver?: boolean,
+  // render item method, similar to FlatList with some enhancements
+  renderItem: CarouselRenderProps =>
+    | Array<React$Element<*> | boolean>
+    | React$Element<*>
+    | null,
 
   // should we capture touch event
   shouldCapture?: GestureState => boolean,
@@ -69,23 +87,11 @@ type CarouselProps = {
   // should we release touch event to another view
   shouldRelease?: GestureState => boolean,
 
-  // fired when the active index for the carousel changes
-  onIndexChange?: number => void,
-
-  // used to set the unique key of each item in the carousel
-  extractKey?: (item: *, index: number) => string,
-
   // style for the FlatList element
   style?: Styles,
-  
-  // style for the FlatList element
-  flatListStyle?: Styles,
-  
-  // style for the FlatList element
-  contentContainerStyle?: Styles,
 
-  // offset from start/end edges of carousel
-  contentOffset?: number,
+  // should we use native driver for animation
+  useNativeDriver?: boolean,
 }
 ```
 

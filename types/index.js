@@ -39,22 +39,24 @@ export type ScrollEvent = {
 };
 
 type CarouselDefaultProps = {
+  contentOffset: number,
+  data: Array<*>,
+  extractKey: (item: *, index: number) => string,
+  itemWidth: number,
+  onEndReached: () => void,
+  onEndReachedThreshold: number,
+  onIndexChange: number => void,
   renderItem: CarouselRenderProps =>
     | Array<React$Element<*> | boolean>
     | React$Element<*>
     | null,
-  itemWidth: number,
-  contentOffset: number,
-  threshold: number,
-  useNativeDriver: boolean,
-  extractKey: (item: *, index: number) => string,
   shouldCapture: GestureState => boolean,
   shouldRelease: GestureState => boolean,
-  onIndexChange: number => void,
+  threshold: number,
+  useNativeDriver: boolean,
 };
 
 export type CarouselProps = CarouselDefaultProps & {
-  data: Array<*>,
   index?: number,
   style?: Styles,
   flatListStyle?: Styles,
