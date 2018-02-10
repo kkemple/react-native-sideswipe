@@ -32,8 +32,11 @@ export default class SideSwipe extends Component<CarouselProps, State> {
 
   static defaultProps = {
     contentOffset: 0,
+    data: [],
     extractKey: (item: *, index: number) => `sideswipe-carousel-item-${index}`,
     itemWidth: screenWidth,
+    onEndReached: () => {},
+    onEndReachedThreshold: 0.9,
     onIndexChange: () => {},
     renderItem: () => null,
     shouldCapture: ({ dx }: GestureState) => Math.abs(dx) > 1,
@@ -98,16 +101,15 @@ export default class SideSwipe extends Component<CarouselProps, State> {
 
   render = () => {
     const {
-      style,
-      flatListStyle,
       contentContainerStyle,
-      data,
       contentOffset,
+      data,
       extractKey,
+      flatListStyle,
       renderItem,
+      style,
     } = this.props;
-    const { currentIndex, scrollPosAnim, animatedValue } = this.state;
-
+    const { animatedValue, currentIndex, scrollPosAnim } = this.state;
     const dataLength = data.length;
 
     return (
@@ -128,6 +130,8 @@ export default class SideSwipe extends Component<CarouselProps, State> {
           scrollEnabled={false}
           showsHorizontalScrollIndicator={false}
           style={[styles.flatList, flatListStyle]}
+          onEndReached={this.props.onEndReached}
+          onEndReachedThreshold={this.props.onEndReachedThreshold}
           scrollEventThrottle={1}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { x: scrollPosAnim } } }],
