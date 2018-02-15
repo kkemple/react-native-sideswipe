@@ -44,7 +44,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
     threshold: 0,
     useNativeDriver: true,
     onScrollBeginDrag: () => {},
-    onScrollEndDrag: () => {}
+    onScrollEndDrag: () => {},
   };
 
   constructor(props: CarouselProps) {
