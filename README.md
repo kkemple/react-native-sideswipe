@@ -46,6 +46,12 @@ type CarouselProps = {
   // function called when the end of the carousel is reached
   onEndReached: () => void,
 
+  // function called when the carousel drag event starts
+  onScrollBeginDrag: () => void,
+
+  // function called when the carousel drag event ends
+  onScrollEndDrag: () => void,
+
   // number between 0 - 1 used to determine when to call onEndReached
   onEndReachedThreshold: number,
 
