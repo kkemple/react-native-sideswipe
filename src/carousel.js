@@ -43,6 +43,8 @@ export default class SideSwipe extends Component<CarouselProps, State> {
     shouldRelease: () => false,
     threshold: 0,
     useNativeDriver: true,
+    onScrollBeginDrag: () => {},
+    onScrollEndDrag: () => {},
   };
 
   constructor(props: CarouselProps) {
@@ -132,6 +134,8 @@ export default class SideSwipe extends Component<CarouselProps, State> {
           style={[styles.flatList, flatListStyle]}
           onEndReached={this.props.onEndReached}
           onEndReachedThreshold={this.props.onEndReachedThreshold}
+          onScrollBeginDrag={this.props.onScrollBeginDrag}
+          onScrollEndDrag={this.props.onScrollEndDrag}
           scrollEventThrottle={1}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { x: scrollPosAnim } } }],

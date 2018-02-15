@@ -44,6 +44,8 @@ type CarouselDefaultProps = {
   extractKey: (item: *, index: number) => string,
   itemWidth: number,
   onEndReached: () => void,
+  onScrollBeginDrag: () => void,
+  onScrollEndDrag: () => void,
   onEndReachedThreshold: number,
   onIndexChange: number => void,
   renderItem: CarouselRenderProps =>
