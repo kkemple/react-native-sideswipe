@@ -25,7 +25,8 @@ type CarouselProps = {
   // style for the FlatList content container element
   contentContainerStyle?: Styles,
 
-  // horizontal padding on carousel
+  // This will equal the padding added to both left and right of itemWidth
+  // e.g. const contentOffset = (viewport.width - itemWidth) / 2
   contentOffset?: number,
 
   // data for FlatList
@@ -40,7 +41,8 @@ type CarouselProps = {
   // active index of the carousel
   index?: number,
 
-  // width of each child
+  // This is the total width of everything that should be centered when in view
+  // tip: be sure to include any margin added to the left and right of the item
   itemWidth?: number,
 
   // function called when the end of the carousel is reached
@@ -57,7 +59,7 @@ type CarouselProps = {
 
   /**
    * drag distance examples with different thresholds
-   * 
+   *
    * with item width of 200 and no threshold
    * ---------------> <-----------------
    * 0 ------- -index/+index ------- 200
@@ -71,7 +73,7 @@ type CarouselProps = {
    * 0 - -index --- 100 --- +index - 200
    *
    * with item width of 200 and 90 threshold
-   * ----->                      <------ 
+   * ----->                      <------
    * 0 -index ----- 100 ----- +index 200
    */
 
