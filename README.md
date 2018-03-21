@@ -24,8 +24,8 @@ Carousel component used to render carousel items via `renderItem` prop.
 type CarouselProps = {
   // applied to the content container within FlatList
   // |------------ [ style ]--------------------------|
-  // | |---------- [ contentContainerStyle ] -------| |
-  // | | |-------- [ flatListStyle ] -------------| | |
+  // | |---------- [ flatListStyle ] ---------------| |
+  // | | |-------- [ contentContainerStyle ] -----| | |
 
   contentContainerStyle?: Styles,
 
@@ -42,8 +42,8 @@ type CarouselProps = {
 
   // applied to the content container within the content container
   // |------------ [ style ]--------------------------|
-  // | |---------- [ contentContainerStyle ] -------| |
-  // | | |-------- [ flatListStyle ] -------------| | |
+  // | |---------- [ flatListStyle ] ---------------| |
+  // | | |-------- [ contentContainerStyle ] -----| | |
   flatListStyle?: Styles,
 
   // active index of the carousel
@@ -99,8 +99,8 @@ type CarouselProps = {
 
   // style for the FlatList wrapper View
   // |------------ [ style ]--------------------------|
-  // | |---------- [ contentContainerStyle ] -------| |
-  // | | |-------- [ flatListStyle ] -------------| | |
+  // | |---------- [ flatListStyle ] ---------------| |
+  // | | |-------- [ contentContainerStyle ] -----| | |
   style?: Styles,
 
   // should we use native driver for animation
