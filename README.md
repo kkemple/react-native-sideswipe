@@ -22,7 +22,11 @@ Carousel component used to render carousel items via `renderItem` prop.
 
 ```js
 type CarouselProps = {
-  // style for the FlatList content container element
+  // applied to the content container within FlatList
+  // |------------ [ style ]--------------------------|
+  // | |---------- [ flatListStyle ] ---------------| |
+  // | | |-------- [ contentContainerStyle ] -----| | |
+
   contentContainerStyle?: Styles,
 
   // This will equal the padding added to both left and right of itemWidth
@@ -35,7 +39,11 @@ type CarouselProps = {
   // used to set the unique key of each item in the carousel
   extractKey?: (item: *, index: number) => string,
 
-  // style for the FlatList element
+
+  // applied to the content container within the content container
+  // |------------ [ style ]--------------------------|
+  // | |---------- [ flatListStyle ] ---------------| |
+  // | | |-------- [ contentContainerStyle ] -----| | |
   flatListStyle?: Styles,
 
   // active index of the carousel
@@ -89,7 +97,10 @@ type CarouselProps = {
   // should we release touch event to another view
   shouldRelease?: GestureState => boolean,
 
-  // style for the FlatList element
+  // style for the FlatList wrapper View
+  // |------------ [ style ]--------------------------|
+  // | |---------- [ flatListStyle ] ---------------| |
+  // | | |-------- [ contentContainerStyle ] -----| | |
   style?: Styles,
 
   // should we use native driver for animation
