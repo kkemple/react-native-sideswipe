@@ -81,7 +81,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
   };
 
   componentWillReceiveProps = (nextProps: CarouselProps) => {
-    if (nextProps.index && nextProps.index !== this.state.currentIndex) {
+    if (typeof nextProps.index !== 'undefined' && nextProps.index !== this.state.currentIndex) {
       this.setState(
         () => ({ currentIndex: nextProps.index }),
         () => {
