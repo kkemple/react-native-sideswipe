@@ -1,4 +1,4 @@
-Hey! :wave: Thanks for taking the time to submit an issue, it's much appreciated! :raised_hands:
+<!-- Hey! Thanks for taking the time to submit an issue, it's much appreciated! -->
 
 Please make sure these boxes are checked before submitting your issue!
 
