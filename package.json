@@ -15,7 +15,7 @@
     "contrib:build": "all-contributors generate"
   },
   "lint-staged": {
-    "scr/**/*.js": [
+    "src/**/*.js": [
       "yarn lint"
     ]
   },
