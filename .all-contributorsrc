@@ -14,7 +14,8 @@
       "profile": "https://twitter.com/kurtiskemple",
       "contributions": [
         "code",
-        "doc"
+        "doc",
+        "blog"
       ]
     },
     {
@@ -60,6 +61,58 @@
       "avatar_url": "https://avatars1.githubusercontent.com/u/10658888?v=4",
       "profile": "https://twitter.com/zacharykeith_",
       "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "geirman",
+      "name": "Chris Geirman",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1640318?v=4",
+      "profile": "http://www.frogquest.com",
+      "contributions": [
+        "bug",
+        "doc",
+        "ideas"
+      ]
+    },
+    {
+      "login": "sipplified",
+      "name": "Dan Sipple",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3743054?v=4",
+      "profile": "https://github.com/sipplified",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "cyphire",
+      "name": "Brian B. Canin",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/337798?v=4",
+      "profile": "http://www.briancanin.com",
+      "contributions": [
+        "code",
+        "review"
+      ]
+    },
+    {
+      "login": "msevestre",
+      "name": "Michael Sevestre",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1041237?v=4",
+      "profile": "http://www.design2code.ca",
+      "contributions": [
+        "bug",
+        "ideas",
+        "test"
+      ]
+    },
+    {
+      "login": "jadidian",
+      "name": "Soheil Jadidian",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/650099?v=4",
+      "profile": "https://github.com/jadidian",
+      "contributions": [
+        "bug",
         "ideas"
       ]
     }

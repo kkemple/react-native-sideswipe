@@ -75,24 +75,22 @@ export default class SideSwipe extends Component<CarouselProps, State> {
   };
 
   componentDidUpdate = (prevProps: CarouselProps) => {
-    if (prevProps.itemWidth !== this.props.itemWidth) {
-      this.state.itemWidthAnim.setValue(this.props.itemWidth);
-    }
-  };
+    const { contentOffset, index, itemWidth } = this.props;
 
-  componentWillReceiveProps = (nextProps: CarouselProps) => {
-    if (nextProps.index && nextProps.index !== this.state.currentIndex) {
+    if (prevProps.itemWidth !== itemWidth) {
+      this.state.itemWidthAnim.setValue(itemWidth);
+    }
+
+    if (Number.isInteger(index) && index !== prevProps.index) {
       this.setState(
-        () => ({ currentIndex: nextProps.index }),
+        () => ({ currentIndex: index }),
         () => {
-          setTimeout(
-            () =>
-              this.list.scrollToIndex({
-                index: this.state.currentIndex,
-                animated: true,
-                viewOffset: this.props.contentOffset,
-              }),
-            200
+          setTimeout(() =>
+            this.list.scrollToIndex({
+              animated: true,
+              index: this.state.currentIndex,
+              viewOffset: contentOffset,
+            })
           );
         }
       );
@@ -126,6 +124,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
           data={data}
           getItemLayout={this.getItemLayout}
           keyExtractor={extractKey}
+          initialScrollIndex={currentIndex}
           ref={this.getRef}
           scrollEnabled={false}
           showsHorizontalScrollIndicator={false}
