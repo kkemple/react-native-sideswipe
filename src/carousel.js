@@ -42,6 +42,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
     shouldCapture: ({ dx }: GestureState) => Math.abs(dx) > 1,
     shouldRelease: () => false,
     threshold: 0,
+    useVelocityForIndex: true,
     useNativeDriver: true,
   };
 
@@ -189,17 +190,23 @@ export default class SideSwipe extends Component<CarouselProps, State> {
         this.props.itemWidth
     );
 
-    const absoluteVelocity: number = Math.round(Math.abs(vx));
-    const velocityDifference: number =
-      absoluteVelocity < 1 ? 0 : absoluteVelocity - 1;
 
-    const newIndex: number =
-      dx > 0
-        ? Math.max(resolvedIndex - velocityDifference, 0)
-        : Math.min(
-            resolvedIndex + velocityDifference,
-            this.props.data.length - 1
-          );
+    let newIndex: number;
+    if (this.props.useVelocityForIndex) {
+      const absoluteVelocity: number = Math.round(Math.abs(vx));
+      const velocityDifference: number =
+        absoluteVelocity < 1 ? 0 : absoluteVelocity - 1;
+
+      newIndex =
+        dx > 0
+          ? Math.max(resolvedIndex - velocityDifference, 0)
+          : Math.min(
+              resolvedIndex + velocityDifference,
+              this.props.data.length - 1
+            );
+    } else {
+      newIndex = resolvedIndex;
+    }
 
     this.list.scrollToIndex({
       index: newIndex,
