@@ -190,7 +190,6 @@ export default class SideSwipe extends Component<CarouselProps, State> {
         this.props.itemWidth
     );
 
-
     let newIndex: number;
     if (this.props.useVelocityForIndex) {
       const absoluteVelocity: number = Math.round(Math.abs(vx));
@@ -205,7 +204,13 @@ export default class SideSwipe extends Component<CarouselProps, State> {
               this.props.data.length - 1
             );
     } else {
-      newIndex = resolvedIndex;
+      newIndex =
+        dx > 0
+          ? Math.max(resolvedIndex, 0)
+          : Math.min(
+              resolvedIndex,
+              this.props.data.length - 1
+            ); 
     }
 
     this.list.scrollToIndex({
