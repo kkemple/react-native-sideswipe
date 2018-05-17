@@ -85,6 +85,9 @@ type CarouselProps = {
    * 0 -index ----- 100 ----- +index 200
    */
 
+  // to determine the index use the velocity of the gesture.
+  useVelocityForIndex?: boolean,
+
   // render item method, similar to FlatList with some enhancements
   renderItem: CarouselRenderProps =>
     | Array<React$Element<*> | boolean>
