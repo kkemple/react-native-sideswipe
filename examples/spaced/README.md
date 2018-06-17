@@ -1,6 +1,6 @@
-# Basic Sideswipe example
+# Spaced example
 
-Run locally with `yarn start` or open a [snack](https://snack.expo.io/@kkemple/sideswipe-example).
+Run locally with `yarn start` or open a [snack](https://snack.expo.io/@kkemple/spaced-sideswipe).
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
