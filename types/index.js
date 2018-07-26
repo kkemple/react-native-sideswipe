@@ -60,6 +60,7 @@ export type CarouselProps = CarouselDefaultProps & {
   index?: number,
   style?: Styles,
   flatListStyle?: Styles,
+  useVelocityForIndex?: boolean,
   contentContainerStyle?: Styles,
 };
 
