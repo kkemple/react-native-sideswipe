@@ -37,6 +37,8 @@ export default class SideSwipe extends Component<CarouselProps, State> {
     itemWidth: screenWidth,
     onEndReached: () => {},
     onEndReachedThreshold: 0.9,
+    onGestureStart: () => {},
+    onGestureRelease: () => {},
     onIndexChange: () => {},
     renderItem: () => null,
     shouldCapture: ({ dx }: GestureState) => Math.abs(dx) > 1,
@@ -69,6 +71,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
   componentWillMount = (): void => {
     this.panResponder = PanResponder.create({
       onMoveShouldSetPanResponder: this.handleGestureCapture,
+      onPanResponderGrant: this.handleGestureStart,
       onPanResponderMove: this.handleGestureMove,
       onPanResponderRelease: this.handleGestureRelease,
       onPanResponderTerminationRequest: this.handleGestureTerminationRequest,
@@ -169,6 +172,9 @@ export default class SideSwipe extends Component<CarouselProps, State> {
   handleGestureCapture = (e: GestureEvent, s: GestureState) =>
     this.props.shouldCapture(s);
 
+  handleGestureStart = (e: GestureEvent, s: GestureState) =>
+    this.props.onGestureStart(s);
+
   handleGestureMove = (e: GestureEvent, { dx }: GestureState) => {
     const currentOffset: number =
       this.state.currentIndex * this.props.itemWidth;
@@ -218,7 +224,10 @@ export default class SideSwipe extends Component<CarouselProps, State> {
 
     this.setState(
       () => ({ currentIndex: newIndex }),
-      () => this.props.onIndexChange(newIndex),
+      () => {
+        this.props.onIndexChange(newIndex);
+        this.props.onGestureRelease();
+      },
     );
   };
 }
