@@ -43,6 +43,8 @@ declare module 'react-native-sideswipe' {
       onIndexChange?: (index: number) => any;
       onEndReached?: FlatListProps<TItem>['onEndReached'];
       onEndReachedThreshold?: FlatListProps<TItem>['onEndReachedThreshold'];
+      onGestureStart?: (gestureState: GestureState) => any,
+      onGestureRelease?: (gestureState: GestureState) => any
     }
   
     class SideSwipe<TItem> extends React.Component<SideSwipeProps<TItem>> {}
