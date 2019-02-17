@@ -64,16 +64,15 @@ export default class SideSwipe extends Component<CarouselProps, State> {
       itemWidthAnim,
       scrollPosAnim,
     };
-  }
-
-  componentWillMount = (): void => {
+    
     this.panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: this.handleGestureCapture,
       onPanResponderMove: this.handleGestureMove,
       onPanResponderRelease: this.handleGestureRelease,
       onPanResponderTerminationRequest: this.handleGestureTerminationRequest,
     });
-  };
+  }
 
   componentDidUpdate = (prevProps: CarouselProps) => {
     const { contentOffset, index, itemWidth } = this.props;
