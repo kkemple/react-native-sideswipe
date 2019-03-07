@@ -138,6 +138,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
             [{ nativeEvent: { contentOffset: { x: scrollPosAnim } } }],
             { useNativeDriver: this.props.useNativeDriver },
           )}
+          refreshControl={this.props.refreshControl}
           renderItem={({ item, index }) =>
             renderItem({
               item,
