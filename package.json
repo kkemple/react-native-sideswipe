@@ -31,9 +31,5 @@
     "prettier": "^1.10.2",
     "react": "16.8.3",
     "react-native": "0.59.0"
-  },
-  "dependencies": {
-    "global": "^4.3.2",
-    "lint": "^1.1.2"
   }
 }
