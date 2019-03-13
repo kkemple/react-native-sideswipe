@@ -53,6 +53,7 @@ type CarouselDefaultProps = {
   shouldCapture: GestureState => boolean,
   shouldRelease: GestureState => boolean,
   threshold: number,
+  useVelocityForIndex: boolean,
   useNativeDriver: boolean,
 };
 
