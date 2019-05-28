@@ -1,6 +1,6 @@
 {
   "name": "react-native-sideswipe",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "cross-platform react native carousel with sensible defaults",
   "main": "src/index.js",
   "types": "types/index.d.ts",
