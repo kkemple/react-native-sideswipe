@@ -3,6 +3,7 @@
   "version": "1.4.2",
   "description": "cross-platform react native carousel with sensible defaults",
   "main": "src/index.js",
+  "types": "types/index.d.ts",
   "repository": "https://github.com/kkemple/react-native-sideswipe",
   "author": "Kurtis Kemple <kurtiskemple@gmail.com>",
   "license": "MIT",
