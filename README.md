@@ -1,9 +1,7 @@
 # Sideswipe
 A simple, cross-platform React Native swipeable carousel with sensible defaults
-
-![demo1](./example-assets/sideswipe.gif)
-
-![demo2](./example-assets/spaced-tesla.gif)
+### Demos 👇👇
+![demo1](./example-assets/sideswipe.gif)  ![demo2](./example-assets/spaced-tesla.gif)
 
 ## Why Another Carousel?
 Most solutions I found were very focused on mobile and adopt a paging pattern which limits what you can do on tablet and when you want the child to page when its smaller than the viewport.
