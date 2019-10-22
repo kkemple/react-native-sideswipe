@@ -13,7 +13,6 @@ import type {
   CarouselProps,
   GestureEvent,
   GestureState,
-  ScrollEvent,
 } from '../types';
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -41,11 +40,12 @@ export default class SideSwipe extends Component<CarouselProps, State> {
     onGestureRelease: () => {},
     onIndexChange: () => {},
     renderItem: () => null,
-    shouldCapture: ({ dx }: GestureState) => (dx * dx) > 1,
+    shouldCapture: ({ dx }: GestureState) => dx * dx > 1,
     shouldRelease: () => false,
     threshold: 0,
     useVelocityForIndex: true,
     useNativeDriver: true,
+    loopSwipes: false,
   };
 
   constructor(props: CarouselProps) {
@@ -200,19 +200,14 @@ export default class SideSwipe extends Component<CarouselProps, State> {
       const absoluteVelocity: number = Math.round(Math.abs(vx));
       const velocityDifference: number =
         absoluteVelocity < 1 ? 0 : absoluteVelocity - 1;
+      const resolvedIndexWithVelocityOffset =
+        dx > 0
+          ? resolvedIndex - velocityDifference
+          : resolvedIndex + velocityDifference;
 
-      newIndex =
-        dx > 0
-          ? Math.max(resolvedIndex - velocityDifference, 0)
-          : Math.min(
-              resolvedIndex + velocityDifference,
-              this.props.data.length - 1
-            );
+      newIndex = this.calculateNewIndex(dx, resolvedIndexWithVelocityOffset);
     } else {
-      newIndex =
-        dx > 0
-          ? Math.max(resolvedIndex, 0)
-          : Math.min(resolvedIndex, this.props.data.length - 1);
+      newIndex = this.calculateNewIndex(dx, resolvedIndex);
     }
 
     this.list.scrollToIndex({
@@ -226,9 +221,25 @@ export default class SideSwipe extends Component<CarouselProps, State> {
       () => {
         this.props.onIndexChange(newIndex);
         this.props.onGestureRelease();
-      },
+      }
     );
   };
+
+  /**
+   * Calculate the new index based on the resolved index, the swipe direction and if looping is enabled
+   *
+   * @param dx Used to determine swipe direction
+   * @param resolvedIndex The index resolved
+   */
+  calculateNewIndex(dx: number, resolvedIndex: number): number {
+    if (this.props.loopSwipes) {
+      return (resolvedIndex + this.props.data.length) % this.props.data.length;
+    } else {
+      return dx > 0
+        ? Math.max(resolvedIndex, 0)
+        : Math.min(resolvedIndex, this.props.data.length - 1);
+    }
+  }
 }
 
 const styles = StyleSheet.create({

@@ -54,6 +54,7 @@ type CarouselDefaultProps = {
   shouldRelease: GestureState => boolean,
   threshold: number,
   useNativeDriver: boolean,
+  loopSwipes: boolean,
 };
 
 export type CarouselProps = CarouselDefaultProps & {
