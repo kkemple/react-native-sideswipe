@@ -1,6 +1,9 @@
 # Sideswipe
 A simple, cross-platform React Native swipeable carousel with sensible defaults
 
+## Looking for maintainers!!
+[DM me on Twitter!](https://twitter.com/theworstdev)
+
 ![demo1](./example-assets/sideswipe.gif)
 
 ![demo2](./example-assets/spaced-tesla.gif)
