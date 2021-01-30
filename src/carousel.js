@@ -45,6 +45,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
     shouldRelease: () => false,
     threshold: 0,
     useVelocityForIndex: true,
+    gestureReleaseAnimated: true,
     useNativeDriver: true,
   };
 
@@ -217,7 +218,7 @@ export default class SideSwipe extends Component<CarouselProps, State> {
 
     this.list.scrollToIndex({
       index: newIndex,
-      animated: true,
+      animated: this.props.gestureReleaseAnimated,
       viewOffset: this.props.contentOffset,
     });
 

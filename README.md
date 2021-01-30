@@ -91,6 +91,9 @@ type CarouselProps = {
   // to determine the index use the velocity of the gesture.
   useVelocityForIndex?: boolean,
 
+  // if gesture is released and the carousel is scrolling to the slide. Do we need to animate to the slide (true) or snap to the right slide (false)
+  gestureReleaseAnimated?: boolean,
+
   // render item method, similar to FlatList with some enhancements
   renderItem: CarouselRenderProps =>
     | Array<React$Element<*> | boolean>
