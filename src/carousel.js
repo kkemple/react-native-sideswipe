@@ -7,6 +7,7 @@ import {
   FlatList,
   PanResponder,
   StyleSheet,
+  I18nManager,
 } from 'react-native';
 
 import type {
@@ -16,6 +17,7 @@ import type {
   ScrollEvent,
 } from '../types';
 
+const { isRTL } = I18nManager;
 const { width: screenWidth } = Dimensions.get('window');
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -175,6 +177,9 @@ export default class SideSwipe extends Component<CarouselProps, State> {
     this.props.onGestureStart(s);
 
   handleGestureMove = (e: GestureEvent, { dx }: GestureState) => {
+    if (isRTL) {
+      dx *= -1
+    }
     const currentOffset: number =
       this.state.currentIndex * this.props.itemWidth;
     const resolvedOffset: number = currentOffset - dx;
@@ -186,6 +191,10 @@ export default class SideSwipe extends Component<CarouselProps, State> {
   };
 
   handleGestureRelease = (e: GestureEvent, { dx, vx }: GestureState) => {
+    if (isRTL) {
+      dx *= -1
+      vx *= -1
+    }
     const currentOffset: number =
       this.state.currentIndex * this.props.itemWidth;
     const resolvedOffset: number = currentOffset - dx;
